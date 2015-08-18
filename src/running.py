@@ -1,13 +1,15 @@
 #!/usr/bin/python
 
 # Blink the running light continuously.
-import RPi.GPIO;
+import RPi.GPIO as gpio;
+import time;
 
+gpio.setwarnings(False);
 gpio.setmode(gpio.BOARD);
 gpio.setup(7, gpio.OUT);
 
-while TRUE:
-    GPIO.output(7, TRUE);
+while True:
+    gpio.output(7, True);
     time.sleep(5);
-    GPIO.output(7, FALSE);
+    gpio.output(7, False);
     time.sleep(1);
