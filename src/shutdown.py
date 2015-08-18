@@ -3,7 +3,7 @@
 # Detect off button press and shutdown the system if needed.
 # Author: MrLeen
 
-import RPI.GPIO;
+import RPi.GPIO;
 import os;
 
 # Set mode to board numbering.

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # Blink the running light continuously.
-import RPI.GPIO;
+import RPi.GPIO;
 
 gpio.setmode(gpio.BOARD);
 gpio.setup(7, gpio.OUT);
