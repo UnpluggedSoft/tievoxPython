@@ -1,10 +1,11 @@
 #!/usr/bin/python    
 
 # Detect off button press and shutdown the system if needed.
-# Author: MrLeen
-
+# Orignal Author: MrLeen
+# Modified By: Jason Burgess <jason@unpluggedsoft.com>
 import RPi.GPIO as gpio;
 import os;
+import logging;
 
 # Set mode to board numbering.
 gpio.setmode(gpio.BOARD);
@@ -13,9 +14,9 @@ gpio.setmode(gpio.BOARD);
 gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_DOWN);
 
 if (gpio.input(7) == 0):
-  print "[SHUTDOWN] Switch is not set to on. Waiting for on state."
+  logging.info("[SHUTDOWN.PY] Switch is not set to on. Waiting for on state.");
   gpio.wait_for_edge(7, gpio.RISING);
-  print "[SHUTDOWN] Switch state set to on. Waiting for off state."
+  logging.info("[SHUTDOWN.PY] Switch state set to on. Waiting for off state.");
 
 # Reset pin 7 configuration
 gpio.cleanup(7);
