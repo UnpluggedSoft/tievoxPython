@@ -21,7 +21,7 @@ if (gpio.input(7) == 0):
   gpio.wait_for_edge(7, gpio.RISING);
 
 # Reset pin 7 configuration
-gpio.clanup(7);
+gpio.cleanup(7);
 gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_DOWN);
 
 # Ensures we have an off button connected first as well
