@@ -3,18 +3,28 @@
 # Detect off button press and shutdown the system if needed.
 # Author: MrLeen
 
-import RPi.GPIO;
+import RPi.GPIO as gpio;
 import os;
 
-# Set mode to board numbering.
-gpio.setmode(gpi.BOARD);
+def shutdown_callback(channel):
+  # Shutdown
+  os.system('shutdown -h now');
 
-# Setup pin 11 as input
-gpio.setup(11, gpio.IN);
+# Set mode to board numbering.
+gpio.setmode(gpio.BOARD);
+
+# Setup pin 7 as input
+gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_DOWN);
+
+if (gpio.input(7) == 0) {
+  print "[SHUTDOWN] Switch is not set to on. Waiting for on state."
+  gpio.wait_for_edge(7, gpio.RISING);
+}
 
 # Ensures we have an off button connected first as well
 # Setup an interrupt to detect the off button press
-gpio.wait_for_edge(7, gpio.FALLING);
+gpio.add_event_detect(7, gpio.FALLING);
+gpio.add_event_callback(7, shutdown_callback);
 
-# Shutdown
-os.system('shutdown -h now');
+
+
