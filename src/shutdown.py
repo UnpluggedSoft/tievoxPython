@@ -5,7 +5,10 @@
 # Modified By: Jason Burgess <jason@unpluggedsoft.com>
 import RPi.GPIO as gpio;
 import os;
-import logging;
+import syslog;
+
+# Set up logging
+syslog.openlog(logoption=syslog.LOG_PID, facility=syslog.LOG_ERR);
 
 # Set mode to board numbering.
 gpio.setmode(gpio.BOARD);
@@ -14,9 +17,9 @@ gpio.setmode(gpio.BOARD);
 gpio.setup(7, gpio.IN, pull_up_down=gpio.PUD_DOWN);
 
 if (gpio.input(7) == 0):
-  logging.info("[SHUTDOWN.PY] Switch is not set to on. Waiting for on state.");
-  gpio.wait_for_edge(7, gpio.RISING);
-  logging.info("[SHUTDOWN.PY] Switch state set to on. Waiting for off state.");
+    syslog.syslog("Switch is not set to on. Waiting for on state.");
+    gpio.wait_for_edge(7, gpio.RISING);
+    syslog.syslog("Switch state set to on. Waiting for off state.");
 
 # Reset pin 7 configuration
 gpio.cleanup(7);
@@ -28,3 +31,4 @@ gpio.wait_for_edge(7, gpio.FALLING);
 
 # Shutdown
 os.system('shutdown -h now');
+syslog.syslog("Shutdown triggered from switch.");
