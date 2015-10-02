@@ -8,5 +8,5 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 
-python $DIR/shutdown.py &
+#python $DIR/shutdown.py &
 python $DIR/running.py &
